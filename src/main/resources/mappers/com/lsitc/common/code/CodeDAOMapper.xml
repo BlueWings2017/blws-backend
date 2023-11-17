@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsitc.domain.common.code.dao.CodeDAO">
+  <select id="selectCodeById"
+    resultType="com.lsitc.domain.common.code.entity.CodeEntity">
+    SELECT id
+         , group_code_id
+         , code
+         , name
+         , sort_sequence
+         , is_used
+         , remark
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_code
+    WHERE id = #{id}
+  </select>
+
+  <select id="selectCodeByConditions"
+    resultType="com.lsitc.domain.common.code.entity.CodeEntity">
+    SELECT id
+    , group_code_id
+    , code
+    , name
+    , sort_sequence
+    , is_used
+    , remark
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date
+    FROM sf_code
+    WHERE 1=1
+    <if test='groupCodeId != null and groupCodeId != ""'>
+      AND group_code_id = #{groupCodeId}
+    </if>
+  </select>
+
+  <insert id="insertCode"
+    parameterType="com.lsitc.domain.common.code.entity.CodeEntity">
+    INSERT INTO sf_code
+    ( group_code_id
+    , code
+    , name
+    , sort_sequence
+    , is_used
+    , remark
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ( #{item.groupCodeId}
+      , #{item.code}
+      , #{item.name}
+      , #{item.sortSequence}
+      , #{item.isUsed}
+      , #{item.remark}
+      , #{item.createdBy}
+      , #{item.createdDate}
+      , #{item.lastModifiedBy}
+      , #{item.lastModifiedDate})
+    </foreach>
+  </insert>
+
+  <insert id="insertCodeWithId"
+    parameterType="com.lsitc.domain.common.code.entity.CodeEntity">
+    INSERT INTO sf_code
+    ( id
+    , group_code_id
+    , code
+    , name
+    , sort_sequence
+    , is_used
+    , remark
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ( #{item.id}
+      , #{item.groupCodeId}
+      , #{item.code}
+      , #{item.name}
+      , #{item.sortSequence}
+      , #{item.isUsed}
+      , #{item.remark}
+      , #{item.createdBy}
+      , #{item.createdDate}
+      , #{item.lastModifiedBy}
+      , #{item.lastModifiedDate})
+    </foreach>
+  </insert>
+
+  <update id="updateCodeById"
+    parameterType="com.lsitc.domain.common.code.entity.CodeEntity">
+    <foreach item="item" collection="list" separator=";">
+    UPDATE sf_code
+    SET group_code_id      = #{item.groupCodeId}
+      , code               = #{item.code}
+      , name               = #{item.name}
+      , sort_sequence      = #{item.sortSequence}
+      , is_used            = #{item.isUsed}
+      , remark             = #{item.remark}
+      , last_modified_by   = #{item.lastModifiedBy}
+      , last_modified_date = #{item.lastModifiedDate}
+    WHERE id = #{item.id}
+    </foreach>
+  </update>
+
+  <delete id="deleteCodeById"
+    parameterType="com.lsitc.domain.common.code.entity.CodeEntity">
+    DELETE
+    FROM sf_code
+    WHERE
+    <foreach collection="list" item="item" separator="OR">
+      id = #{item.id}
+    </foreach>
+  </delete>
+</mapper>

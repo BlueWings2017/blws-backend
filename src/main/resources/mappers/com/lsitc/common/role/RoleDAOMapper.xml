@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsitc.domain.common.role.dao.RoleDAO">
+  <select id="selectRoleById"
+    parameterType="com.lsitc.domain.common.role.entity.RoleEntity"
+    resultType="com.lsitc.domain.common.role.entity.RoleEntity">
+    SELECT id
+         , name
+         , remark
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_role
+    WHERE id = #{id}
+  </select>
+
+  <select id="selectAll"
+    resultType="com.lsitc.domain.common.role.entity.RoleEntity">
+    SELECT id
+         , name
+         , remark
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_role
+  </select>
+
+  <select id="selectRoleByConditions"
+    parameterType="com.lsitc.domain.common.role.entity.RoleEntity"
+    resultType="com.lsitc.domain.common.role.entity.RoleEntity">
+    SELECT id
+         , name
+         , remark
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_role
+    WHERE 1=1
+    <if test="id != null and id != ''">
+    AND id = #{id}
+    </if>
+    <if test="name != null and name != ''">
+    AND name LIKE CONCAT('%', #{name}, '%')
+    </if>
+  </select>
+
+  <insert id="insertRoleList"
+    parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
+	    INSERT INTO sf_role
+	    ( name
+	    , remark
+	    , created_by
+	    , created_date
+	    , last_modified_by
+	    , last_modified_date)
+	    VALUES
+    <foreach item="item" collection="list" separator=",">
+	    ( #{item.name}
+	    , #{item.remark}
+	    , #{item.createdBy}
+	    , #{item.createdDate}
+	    , #{item.lastModifiedBy}
+	    , #{item.lastModifiedDate})
+    </foreach>
+  </insert>
+
+  <insert id="insertRoleWithId"
+    parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
+    INSERT INTO sf_role
+    ( id
+    , name
+    , remark
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES 
+    <foreach item="item" collection="list" separator=",">
+    ( #{item.id}
+    , #{item.name}
+    , #{item.remark}
+    , #{item.createdBy}
+    , #{item.createdDate}
+    , #{item.lastModifiedBy}
+    , #{item.lastModifiedDate})
+    </foreach>
+  </insert>
+
+  <update id="updateRoleById"
+    parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
+    <foreach item="item" collection="list" separator=";">
+    UPDATE sf_role
+    SET name               = #{item.name}
+      , remark             = #{item.remark}
+      , last_modified_by   = #{item.lastModifiedBy}
+      , last_modified_date = #{item.lastModifiedDate}
+    WHERE id = #{item.id}
+    </foreach>
+  </update>
+
+  <delete id="deleteRoleById"
+    parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
+    DELETE
+    FROM sf_role
+    WHERE
+    <foreach collection="list" item="item" separator="OR">
+        id = #{item.id}
+    </foreach>
+  </delete>
+</mapper>

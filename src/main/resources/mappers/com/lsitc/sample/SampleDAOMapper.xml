@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsitc.domain.sample.dao.SampleDAO">
+  <select id="selectSampleById"
+    parameterType="com.lsitc.domain.sample.entity.SampleEntity"
+    resultType="com.lsitc.domain.sample.entity.SampleEntity">
+    SELECT id
+         , foo
+         , bar
+         , comment
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+         , is_deleted
+         , deleted_by
+         , deleted_date
+    FROM sf_sample
+    WHERE id = #{id}
+  </select>
+
+  <select id="selectSampleByIds"
+    parameterType="com.lsitc.domain.sample.entity.SampleEntity"
+    resultType="com.lsitc.domain.sample.entity.SampleEntity">
+    SELECT id
+         , foo
+         , bar
+         , comment
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+         , is_deleted
+         , deleted_by
+         , deleted_date
+    FROM sf_sample
+    WHERE
+        <foreach collection="list" item="item" separator="OR">
+        id = #{item.id}
+        </foreach>
+  </select>
+
+  <select id="selectAll"
+    resultType="com.lsitc.domain.sample.entity.SampleEntity">
+    SELECT id
+         , foo
+         , bar
+         , comment
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+         , is_deleted
+         , deleted_by
+         , deleted_date
+    FROM sf_sample
+    <if test="pageable.size != null and pageable.page != null ">
+    ORDER BY created_by
+    LIMIT #{pageable.size}
+    OFFSET #{pageable.offset}
+    </if>
+  </select>
+
+  <insert id="insertSample"
+    parameterType="com.lsitc.domain.sample.entity.SampleEntity"
+    useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    INSERT INTO sf_sample
+    ( foo
+    , bar
+    , comment
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES ( #{foo}
+           , #{bar}
+           , #{comment}
+           , #{createdBy}
+           , #{createdDate}
+           , #{lastModifiedBy}
+           , #{lastModifiedDate})
+  </insert>
+
+  <insert id="insertSampleList"
+    parameterType="com.lsitc.domain.sample.entity.SampleEntity">
+    INSERT INTO sf_sample
+    ( foo
+    , bar
+    , comment
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ( #{item.foo}
+      , #{item.bar}
+      , #{item.comment}
+      , #{item.createdBy}
+      , #{item.createdDate}
+      , #{item.lastModifiedBy}
+      , #{item.lastModifiedDate})
+    </foreach>
+  </insert>
+
+  <insert id="insertSampleWithId"
+    parameterType="com.lsitc.domain.sample.entity.SampleEntity">
+    INSERT INTO sf_sample
+    ( id
+    , foo
+    , bar
+    , comment
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ( #{item.id}
+      , #{item.foo}
+      , #{item.bar}
+      , #{item.comment}
+      , #{item.createdBy}
+      , #{item.createdDate}
+      , #{item.lastModifiedBy}
+      , #{item.lastModifiedDate})
+    </foreach>
+  </insert>
+
+  <update id="updateSampleById"
+    parameterType="com.lsitc.domain.sample.entity.SampleEntity">
+    <foreach item="item" collection="list" separator=";">
+      UPDATE sf_sample
+      SET foo                = #{item.foo}
+        , bar                = #{item.bar}
+        , comment            = #{item.comment}
+        , last_modified_by   = #{item.lastModifiedBy}
+        , last_modified_date = #{item.lastModifiedDate}
+      WHERE id = #{item.id}
+      </foreach>
+  </update>
+
+  <delete id="deleteSampleById"
+    parameterType="com.lsitc.domain.sample.entity.SampleEntity">
+    DELETE
+    FROM sf_sample
+    WHERE
+    <foreach collection="list" item="item" separator="OR">
+        id = #{item.id}
+    </foreach>
+  </delete>
+
+  <update id="updateSampleIsDeletedById"
+    parameterType="com.lsitc.domain.sample.entity.SampleEntity">
+    <foreach collection="list" item="item" separator=";">
+      UPDATE sf_sample
+      SET is_deleted         = #{item.isDeleted}
+        , deleted_date       = #{item.deletedDate}
+        , deleted_by         = #{item.deletedBy}
+        , last_modified_by   = #{item.lastModifiedBy}
+        , last_modified_date = #{item.lastModifiedDate}
+      WHERE id = #{item.id}
+    </foreach>
+  </update>
+</mapper>

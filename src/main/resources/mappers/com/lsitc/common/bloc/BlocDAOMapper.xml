@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsitc.domain.common.bloc.dao.BlocDAO">
+  <select id="selectBlocById"
+    parameterType="com.lsitc.domain.common.bloc.entity.BlocEntity"
+    resultType="com.lsitc.domain.common.bloc.entity.BlocEntity">
+    SELECT id
+         , name
+         , is_deleted
+         , deleted_by
+         , deleted_date
+         , remark
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_bloc
+    WHERE id = #{id}
+  </select>
+
+  <select id="selectAll"
+    resultType="com.lsitc.domain.common.bloc.entity.BlocEntity">
+    SELECT id
+         , name
+         , is_deleted
+         , deleted_by
+         , deleted_date
+         , remark
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_bloc
+  </select>
+
+  <insert id="insertBloc"
+    parameterType="com.lsitc.domain.common.bloc.entity.BlocEntity"
+    useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    INSERT INTO sf_bloc
+    ( name
+    , is_deleted
+    , remark
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES ( #{name}
+           , #{isDeleted}
+           , #{remark}
+           , #{createdBy}
+           , #{createdDate}
+           , #{lastModifiedBy}
+           , #{lastModifiedDate})
+  </insert>
+
+  <insert id="insertBlocWithId"
+    parameterType="com.lsitc.domain.common.bloc.entity.BlocEntity">
+    INSERT INTO sf_bloc
+    ( id
+    , name
+    , is_deleted
+    , remark
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES ( #{id}
+           , #{name}
+           , #{isDeleted}
+           , #{remark}
+           , #{createdBy}
+           , #{createdDate}
+           , #{lastModifiedBy}
+           , #{lastModifiedDate})
+  </insert>
+
+  <update id="updateBlocById"
+    parameterType="com.lsitc.domain.common.bloc.entity.BlocEntity">
+    UPDATE sf_bloc
+    SET name               = #{name}
+      , remark             = #{remark}
+      , last_modified_by   = #{lastModifiedBy}
+      , last_modified_date = #{lastModifiedDate}
+    WHERE id = #{id}
+  </update>
+
+  <update id="updateBlocIsDeletedById"
+    parameterType="com.lsitc.domain.common.bloc.entity.BlocEntity">
+    UPDATE sf_bloc
+    SET is_deleted         = #{isDeleted}
+      , deleted_date       = #{deletedDate}
+      , deleted_by         = #{deletedBy}
+      , last_modified_by   = #{lastModifiedBy}
+      , last_modified_date = #{lastModifiedDate}
+    WHERE id = #{id}
+  </update>
+</mapper>

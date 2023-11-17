@@ -1,0 +1,75 @@
+stages:
+  - build
+  - deploy
+
+build-to-dev:
+  image: openjdk:11-jdk
+  stage: build
+  only:
+    - develop
+  before_script:
+    - export M2_HOME=/opt/maven
+    - export MAVEN_HOME=/opt/maven
+    - export PATH=${M2_HOME}/bin:${PATH}
+  script:
+    - mvn clean package
+  after_script:
+    - export imagename=10.123.202.171:5000/sf-app
+    - export imagetag=dev$(date '+%Y%m%d')
+    - mv target/backend-0.0.1-SNAPSHOT.jar $CI_PROJECT_DIR/app.jar
+    - docker build -t sf-app:$imagetag $CI_PROJECT_DIR
+    - docker tag sf-app:$imagetag $imagename:$imagetag
+    - docker push $imagename:$imagetag
+    - docker rmi $imagename:$imagetag
+    - docker rmi sf-app:$imagetag
+
+deploy-to-dev:
+  stage: deploy
+  only:
+    - develop
+  script:
+    - export sshscript='ssh sfuser@10.123.202.201 -p 2211'
+    - export imagename=10.123.202.171:5000/sf-app
+    - export imagetag=dev$(date '+%Y%m%d')
+    - $sshscript docker pull $imagename:$imagetag
+    - $sshscript docker stop sf-app || true
+    - $sshscript docker rm sf-app || true
+    - $sshscript docker run --name sf-app -d -p 8080:8080 $imagename:$imagetag $APP_ENV_DEV --spring.profiles.active=dev
+    - export rmiscript='ssh sfuser@10.123.202.201 -p 2211 docker rmi $(docker images -q --filter "before='$imagename':'$imagetag'") || true'
+    - $rmiscript
+
+build-to-prod:
+  image: openjdk:11-jdk
+  stage: build
+  only:
+    - master
+  before_script:
+    - export M2_HOME=/opt/maven
+    - export MAVEN_HOME=/opt/maven
+    - export PATH=${M2_HOME}/bin:${PATH}
+  script:
+    - mvn clean package
+  after_script:
+    - export imagename=10.123.202.171:5000/sf-app
+    - export imagetag=prod$(date '+%Y%m%d')
+    - mv target/backend-0.0.1-SNAPSHOT.jar $CI_PROJECT_DIR/app.jar
+    - docker build -t sf-app:$imagetag $CI_PROJECT_DIR
+    - docker tag sf-app:$imagetag $imagename:$imagetag
+    - docker push $imagename:$imagetag
+    - docker rmi $imagename:$imagetag
+    - docker rmi sf-app:$imagetag
+
+deploy-to-prod:
+  stage: deploy
+  only:
+    - master
+  script:
+    - export sshscript='ssh sfuser@10.123.202.204 -p 2211'
+    - export imagename=10.123.202.171:5000/sf-app
+    - export imagetag=prod$(date '+%Y%m%d')
+    - $sshscript docker pull $imagename:$imagetag
+    - $sshscript docker stop sf-app || true
+    - $sshscript docker rm sf-app || true
+    - $sshscript docker run --name sf-app -d -p 8080:8080 $imagename:$imagetag $APP_ENV_PROD --spring.profiles.active=prod
+    - export rmiscript='ssh sfuser@10.123.202.204 -p 2211 docker rmi $(docker images -q --filter "before='$imagename':'$imagetag'") || true'
+    - $rmiscript

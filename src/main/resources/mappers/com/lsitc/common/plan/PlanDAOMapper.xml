@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsitc.domain.common.plan.dao.PlanDAO">
+	
+  <select id="selectPlanById"
+    parameterType="com.lsitc.domain.common.plan.entity.PlanEntity"
+    resultType="com.lsitc.domain.common.plan.entity.PlanEntity">
+    SELECT id
+         , start_date
+         , start_hour
+         , start_minute
+         , end_date
+         , end_hour
+         , end_minute
+         , plan_title
+         , plan_contents
+         , plan_color
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_plan
+    WHERE id = #{id}
+  </select>
+  
+  <select id="selectPlanByConditions"
+    parameterType="com.lsitc.domain.common.plan.entity.PlanEntity"
+    resultType="com.lsitc.domain.common.plan.entity.PlanEntity">
+    SELECT id
+         , start_date
+         , start_hour
+         , start_minute
+         , end_date
+         , end_hour
+         , end_minute
+         , plan_title
+         , plan_contents
+         , plan_color
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_plan
+    WHERE start_date <![CDATA[ >= ]]> #{startDate}
+    AND end_date <![CDATA[ <= ]]> #{endDate}
+  </select>
+  
+  <insert id="insertPlanList"
+    parameterType="com.lsitc.domain.common.plan.entity.PlanEntity">
+    INSERT INTO sf_plan
+    ( start_date
+    , start_hour
+    , start_minute
+    , end_date
+    , end_hour
+    , end_minute
+    , plan_title
+    , plan_contents
+    , plan_color
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES 
+    <foreach item="item" collection="list" separator=",">
+    ( #{item.startDate}
+    , #{item.startHour}
+    , #{item.startMinute}
+    , #{item.endDate}
+    , #{item.endHour}
+    , #{item.endMinute}
+    , #{item.planTitle}
+    , #{item.planContents}
+    , #{item.planColor}
+    , #{item.createdBy}
+    , #{item.createdDate}
+    , #{item.lastModifiedBy}
+    , #{item.lastModifiedDate})
+    </foreach>
+	</insert>
+	
+  <update id="updatePlanById"
+    parameterType="com.lsitc.domain.common.calendar.entity.CalendarEntity">
+    <foreach item="item" collection="list" separator=";">
+    UPDATE sf_plan
+    SET start_date         = #{item.startDate}
+	    , start_hour         = #{item.startHour}
+	    , start_minute       = #{item.startMinute} 
+	    , end_date           = #{item.endDate} 
+	    , end_hour           = #{item.endHour}
+	    , end_minute         = #{item.endMinute}
+	    , plan_title         = #{item.planTitle}
+	    , plan_contents      = #{item.planContents}
+	    , plan_color         = #{item.planColor}
+      , last_modified_by   = #{item.lastModifiedBy}
+      , last_modified_date = #{item.lastModifiedDate}
+    WHERE id = #{item.id}
+    </foreach>
+  </update>
+  
+  <insert id="insertPlanWithId"
+    parameterType="com.lsitc.domain.common.plan.entity.PlanEntity">
+    INSERT INTO sf_plan
+    ( id
+    , start_date
+    , start_hour
+    , start_minute
+    , end_date
+    , end_hour
+    , end_minute
+    , plan_title
+    , plan_contents
+    , plan_color
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES 
+    <foreach item="item" collection="list" separator=",">
+    ( #{item.id}
+    , #{item.startDate}
+    , #{item.startHour}
+    , #{item.startMinute}
+    , #{item.endDate}
+    , #{item.endHour}
+    , #{item.endMinute}
+    , #{item.planTitle}
+    , #{item.planContents}
+    , #{item.planColor}
+    , #{item.createdBy}
+    , #{item.createdDate}
+    , #{item.lastModifiedBy}
+    , #{item.lastModifiedDate})
+    </foreach>
+	</insert>
+	
+  <delete id="deletePlanById"
+    parameterType="com.lsitc.domain.common.plan.entity.PlanEntity">
+    DELETE
+    FROM sf_plan
+    WHERE
+    <foreach collection="list" item="item" separator="OR">
+        id = #{item.id}
+    </foreach>
+  </delete>
+</mapper>

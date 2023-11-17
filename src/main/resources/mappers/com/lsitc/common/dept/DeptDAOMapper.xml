@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsitc.domain.common.dept.dao.DeptDAO">
+  <select id="selectDeptById"
+    parameterType="com.lsitc.domain.common.dept.entity.DeptEntity"
+    resultType="com.lsitc.domain.common.dept.entity.DeptEntity">
+    SELECT id
+         , name
+         , parents_id
+         , remark
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_dept
+    WHERE id = #{id}
+  </select>
+
+  <select id="selectAll"
+    resultType="com.lsitc.domain.common.dept.entity.DeptEntity">
+    SELECT id
+         , name
+         , parents_id
+         , remark
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_dept
+  </select>
+  
+  <select id="selectDeptByConditions"
+    resultType="com.lsitc.domain.common.dept.entity.DeptEntity">
+    SELECT id
+         , name
+         , parents_id
+         , remark
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_dept
+  </select>
+
+  <insert id="insertDept"
+    parameterType="com.lsitc.domain.common.dept.entity.DeptEntity">
+    INSERT INTO sf_dept
+    ( name
+    , parents_id
+    , remark
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ( #{item.name}
+      , #{item.parentsId}
+      , #{item.remark}
+      , #{item.createdBy}
+      , #{item.createdDate}
+      , #{item.lastModifiedBy}
+      , #{item.lastModifiedDate})
+    </foreach>
+  </insert>
+
+  <insert id="insertDeptWithId"
+    parameterType="com.lsitc.domain.common.dept.entity.DeptEntity">
+    INSERT INTO sf_dept
+    ( id
+    , name
+    , parents_id
+    , remark
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ( #{item.id}
+      , #{item.name}
+      , #{item.parentsId}
+      , #{item.remark}
+      , #{item.createdBy}
+      , #{item.createdDate}
+      , #{item.lastModifiedBy}
+      , #{item.lastModifiedDate})
+    </foreach>
+  </insert>
+
+  <update id="updateDeptById"
+    parameterType="com.lsitc.domain.common.dept.entity.DeptEntity">
+    <foreach item="item" collection="list" separator=";">
+    UPDATE sf_dept
+    SET name               = #{item.name}
+      , parents_id         = #{item.parentsId}
+      , remark             = #{item.remark}
+      , last_modified_by   = #{item.lastModifiedBy}
+      , last_modified_date = #{item.lastModifiedDate}
+    WHERE id = #{item.id}
+    </foreach>
+  </update>
+
+  <delete id="deleteDeptById"
+    parameterType="com.lsitc.domain.common.dept.entity.DeptEntity">
+    DELETE
+    FROM sf_dept
+    WHERE
+    <foreach collection="list" item="item" separator="OR">
+        id = #{item.id}
+    </foreach>
+  </delete>
+</mapper>

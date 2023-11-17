@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsitc.domain.common.calendar.dao.CalendarDAO">
+  
+  <select id="selectCalendarByConditions"
+    parameterType="com.lsitc.domain.common.calendar.entity.CalendarEntity"
+    resultType="com.lsitc.domain.common.calendar.entity.CalendarEntity">
+    SELECT date
+         , is_holiday
+         , holiday_name
+         , remark
+         , created_by
+         , created_date
+         , last_modified_by
+         , last_modified_date
+    FROM sf_calendar
+    WHERE date BETWEEN #{startDate} AND #{endDate}
+  </select>
+  
+  <select id="selectHolidayByConditions"
+    parameterType="com.lsitc.domain.common.calendar.entity.CalendarEntity"
+    resultType="com.lsitc.domain.common.calendar.entity.CalendarEntity">
+    SELECT date
+         , is_holiday
+         , holiday_name
+         , remark
+    FROM sf_holiday
+    WHERE date BETWEEN #{startDate} AND #{endDate}
+  </select>
+  
+  <insert id="insertCalendarList"
+    parameterType="com.lsitc.domain.common.calendar.entity.CalendarEntity">
+    INSERT INTO sf_calendar
+    ( date
+    , is_holiday
+    , holiday_name
+    , remark
+    , created_by
+    , created_date
+    , last_modified_by
+    , last_modified_date)
+    VALUES 
+    <foreach item="item" collection="list" separator=",">
+    ( #{item.date}
+    , #{item.isHoliday}
+    , #{item.holidayName}
+    , #{item.remark}
+    , #{item.createdBy}
+    , #{item.createdDate}
+    , #{item.lastModifiedBy}
+    , #{item.lastModifiedDate})
+    </foreach>
+	</insert>
+	
+  <update id="updateCalendarByDate"
+    parameterType="com.lsitc.domain.common.calendar.entity.CalendarEntity">
+    <foreach item="item" collection="list" separator=";">
+    UPDATE sf_calendar
+    SET is_holiday         = #{item.isHoliday}
+      , holiday_name       = #{item.holidayName}
+      , remark             = #{item.remark}
+      , last_modified_by   = #{item.lastModifiedBy}
+      , last_modified_date = #{item.lastModifiedDate}
+    WHERE date = #{item.date}
+    </foreach>
+  </update>
+	
+</mapper>

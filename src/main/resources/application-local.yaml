@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:tibero:thin:@49.173.41.74:8629:tibero
+    driver-class-name: com.tmax.tibero.jdbc.TbDriver
+    username: NI01
+    password: tmax
+  security:
+    user:
+      name: NI01
+      password: tmax
+  jwt:
+    header: Authorization
+    secret: bHNtZXNfMjAyM19wcm9qZWN0XzAxMjM0NTY3ODlfMDEyMzQ1Njc4OV8wMTIzNDU2Nzg5XzAxMjM0NTY3ODlfMDEyMzQ1Njc4OQ== # lsmes_2023_project_0123456789_0123456789_0123456789_0123456789_0123456789
+    token-access-validity-in-seconds: 7200 # 2 Hour
+    token-refresh-validity-in-seconds: 604800 # 1 Week
+  cors:
+    allowed-origins: 'http://localhost:8080,http://localhost:3000'
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'authorization'
+    allow-credentials: true
+    max-age: 1800

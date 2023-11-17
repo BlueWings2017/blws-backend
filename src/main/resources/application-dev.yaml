@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:tibero:thin:@49.173.41.74:8629:tibero
+    driver-class-name: com.tmax.tibero.jdbc.TbDriver
+    username: NI01
+    password: tmax
+  security:
+    user:
+      name: NI01
+      password: tmax
+  server:
+    #port설정
+    port: 22286
+    error:
+      #에러표시여부
+      include-exception: false
+      #handler path
+      path: /error
+      # 기본처리사용여부
+      whitelabel:
+        enabled: false
+    servlet:
+      encoding:
+        charset: UTF-8
+        force: true
+      session:
+        cookie:
+          http-only: true
+      context-path: "/api"

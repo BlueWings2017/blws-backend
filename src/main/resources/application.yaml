@@ -1,0 +1,140 @@
+#공통적용 내용으로 반드시 채워주셔야 합니다.
+spring:
+  #log색상지정
+  output:
+    ansi:
+      enabled: always
+  #servlet 설정
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 100MB
+  profiles:
+    #프로파일(local:개발자 환경, dev:개발서버, prod:운영 택1, 향후 runtime argument로 넘어갈 예정)
+    active: local
+  jackson:
+    deserialization:
+      accept-single-value-as-array: true
+  datasource:
+    url: jdbc:tibero:thin:@49.173.41.74:8629:tibero
+    driver-class-name: com.tmax.tibero.jdbc.TbDriver
+    username: NI01
+    password: tmax
+  security:
+    user:
+      name: NI01
+      password: tmax
+  jwt:
+    header: "Authorization"
+    secret: bHNtZXNfMjAyM19wcm9qZWN0XzAxMjM0NTY3ODlfMDEyMzQ1Njc4OV8wMTIzNDU2Nzg5XzAxMjM0NTY3ODlfMDEyMzQ1Njc4OQ== # lsmes_2023_project_0123456789_0123456789_0123456789_0123456789_0123456789
+    token-access-validity-in-seconds: 7200 # 2 Hour
+    token-refresh-validity-in-seconds: 604800 # 1 Week
+
+  cors:
+    allowed-origins: 'http://localhost:8080,http://localhost:3000'
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'authorization'
+    allow-credentials: true
+    max-age: 1800
+
+#로깅관련
+logging:
+  level:
+    root: DEBUG
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30
+  file:
+    path: logs
+    name: app
+
+server:
+  #port설정
+  port: 8080
+  error:
+    #에러표시여부
+    include-exception: false
+    #handler path
+    path: /error
+    # 기본처리사용여부
+    whitelabel:
+      enabled: false
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+    session:
+      cookie:
+        http-only: true
+    context-path: "/api"
+#mybatis
+mybatis:
+  configuration:
+    default-executor-type: reuse
+    lazy-loading-enabled: true
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+  mapper-locations:
+    - classpath*:mappers/**/*.xml
+
+#이하 해당 프로젝트에서 profile별로 필요한 정보를 세팅한다.(default와 중복될 경우 override)
+#DB외 SPRING과 관련된 직접적인 셋팅은 자제하고, 이 외 필요한 것들만 선언해서 사용한다. (t)
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 3
+      idle-timeout: 600000 #(10분)
+      max-lifetime: 1800000 #(30분)
+      connection-timeout: 15000
+
+#서버포트 설정
+server:
+  error:
+    #stactrcae포함
+    include-stacktrace: always
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 3
+      idle-timeout: 600000 #(10분)
+      max-lifetime: 1800000 #(30분)
+      connection-timeout: 15000
+
+#서버포트 설정
+server:
+  error:
+    #stactrcae포함
+    include-stacktrace: always
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      idle-timeout: 600000 #(10분)
+      max-lifetime: 1800000 #(30분)
+      connection-timeout: 15000
+
+#서버포트 설정
+server:
+  error:
+    #stactrcae포함
+    include-stacktrace: never
