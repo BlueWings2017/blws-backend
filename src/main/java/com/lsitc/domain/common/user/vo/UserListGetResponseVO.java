@@ -15,15 +15,15 @@ public class UserListGetResponseVO {
   private final String name;
   private final String email;
   private final String phoneNumber;
-  private final Long createdBy;
+  private final String createdBy;
   private final LocalDateTime createdDate;
-  private final Long lastModifiedBy;
+  private final String lastModifiedBy;
   private final LocalDateTime lastModifiedDate;
   private final int roleId;
 
   @Builder
   private UserListGetResponseVO(Long id, String userId, String name, String email,
-      String phoneNumber, Long createdBy, LocalDateTime createdDate, Long lastModifiedBy,
+      String phoneNumber, String createdBy, LocalDateTime createdDate, String lastModifiedBy,
       LocalDateTime lastModifiedDate, int roleId) {
     this.id = id;
     this.userId = userId;

@@ -21,7 +21,7 @@ public class MainMenuListGetRequestVO {
     String roleId = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
 
     return MenuEntity.builder()
-        .isUsed(true)
+        .isUsed(1)
         .roleId(Integer.parseInt(roleId))
         .build();
   }

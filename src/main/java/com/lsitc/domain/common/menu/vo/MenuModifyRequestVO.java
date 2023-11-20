@@ -35,8 +35,8 @@ public class MenuModifyRequestVO {
         .build();
   }
 
-  private Boolean convertUseFg() {
-    return BooleanState.of(String.valueOf(this.useFg)).getBooleanValue();
+  private Integer convertUseFg() {
+    return BooleanState.of(String.valueOf(this.useFg)).getBooleanValue() ? 1 : 0;
   }
 
   @Override

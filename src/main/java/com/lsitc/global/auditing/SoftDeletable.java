@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public interface SoftDeletable<U, T extends TemporalAccessor> {
 
   @JsonIgnore
-  boolean isDeleted();
+  int isDeleted();
 
   @JsonIgnore
   U getDeletedBy();

@@ -27,3 +27,10 @@ spring:
         cookie:
           http-only: true
       context-path: "/api"
+mybatis:
+  configuration:
+    default-executor-type: reuse
+    lazy-loading-enabled: true
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+    jdbc-type-for-null: "NULL"

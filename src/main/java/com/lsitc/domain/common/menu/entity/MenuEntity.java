@@ -12,21 +12,21 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MenuEntity extends BaseAbstractEntity implements Auditable<Long, LocalDateTime> {
+public class MenuEntity extends BaseAbstractEntity {
 
   private Long id;
   private String name;
   private String englishName;
   private Long parentsId;
   private String url;
-  private Boolean isUsed;
+  private int isUsed;
   private int sortSequence;
   private int roleId;
   private String iconClass;
 
   @Builder
   private MenuEntity(Long id, String name, String englishName, Long parentsId, String url,
-      Boolean isUsed, int sortSequence, int roleId, String iconClass) {
+      int isUsed, int sortSequence, int roleId, String iconClass) {
     this.id = id;
     this.name = name;
     this.englishName = englishName;

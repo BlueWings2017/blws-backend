@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RoleEntity extends BaseAbstractEntity
-    implements Auditable<Long, LocalDateTime> {
+    implements Auditable<String, LocalDateTime> {
 
   private Long id;
   private String name;

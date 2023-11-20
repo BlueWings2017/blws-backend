@@ -49,16 +49,16 @@
   <select id="selectUserByUserId"
     parameterType="com.lsitc.domain.common.user.entity.UserEntity"
     resultType="com.lsitc.domain.common.user.entity.UserEntity">
-    SELECT USERID AS userId
-		, USERNAME AS name
-		, PASSWORD AS password
-		, EMAIL AS email
-		, PHONE_NUMBER AS phoneNumber
-		, ACCESS_TOKEN as accessToken
-		, REFRESH_TOKEN as refreshToken
-		, USEFLAG AS roleId
+    SELECT USER_ID
+		, NAME
+		, PASSWORD
+		, EMAIL
+		, PHONE_NUMBER
+		, ACCESS_TOKEN
+		, REFRESH_TOKEN
+		, ROLE_ID
     FROM NI01.sf_user
-    WHERE USERID = #{userId}
+    WHERE USER_ID = #{userId}
   </select>
 
   <select id="selectAll"
@@ -69,12 +69,12 @@
          , email
          , phone_number
          , created_by
-         , created_date
-         , last_modified_by
-         , last_modified_date
+         -- , created_date
+          , last_modified_by
+         -- , last_modified_date
          , is_deleted
          , deleted_by
-         , deleted_date
+         -- , deleted_date
          , role_id
     FROM NI01.sf_user
   </select>
@@ -88,23 +88,23 @@
          , email
          , phone_number
          , created_by
-         , created_date
+         -- , created_date
          , last_modified_by
-         , last_modified_date
+         -- , last_modified_date
          , is_deleted
          , deleted_by
-         , deleted_date
+         -- , deleted_date
          , role_id
     FROM NI01.sf_user
-    WHERE is_deleted = false
+    WHERE is_deleted = 0
     <if test="id != null and id != ''">
     AND id = #{id}
     </if>
     <if test="userId != null and userId != ''">
-    AND user_id LIKE CONCAT('%', #{userId}, '%')
+    AND user_id LIKE '%'|| #{userId}|| '%'
     </if>
     <if test="name != null and name != ''">
-    AND name LIKE CONCAT('%', #{name}, '%')
+    AND name LIKE '%'|| #{name}|| '%'
     </if>
   </select>
 
@@ -139,8 +139,7 @@
   <insert id="insertUserWithId"
     parameterType="com.lsitc.domain.common.user.entity.UserEntity">
     INSERT INTO NI01.sf_user
-    ( id
-    , user_id
+    ( user_id
     , password
     , name
     , email
@@ -152,8 +151,7 @@
     , role_id)
     VALUES 
     <foreach item="item" collection="list" separator=",">
-    ( #{item.id}
-    , #{item.userId}
+    ( #{item.userId}
     , #{item.password}
     , #{item.name}
     , #{item.email}
@@ -203,6 +201,6 @@
         UPDATE NI01.sf_user
         SET ACCESS_TOKEN     = #{accessToken}
           , REFRESH_TOKEN    = #{refreshToken}
-        WHERE USERID = #{userId}
+        WHERE USER_ID = #{userId}
     </update>
 </mapper>

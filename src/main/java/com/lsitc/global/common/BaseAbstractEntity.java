@@ -9,17 +9,17 @@ import lombok.Setter;
 @Setter
 public abstract class BaseAbstractEntity {
 
-  private Long createdBy;
+  private String createdBy;
   private LocalDateTime createdDate;
-  private Long lastModifiedBy;
+  private String lastModifiedBy;
   private LocalDateTime lastModifiedDate;
-  private boolean isDeleted;
-  private Long deletedBy;
+  private int isDeleted;
+  private String deletedBy;
   private LocalDateTime deletedDate;
 
   public void delete() {
     if (this instanceof SoftDeletable) {
-      setDeleted(true);
+      setIsDeleted(1);
     }
   }
 }

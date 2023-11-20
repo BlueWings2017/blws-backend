@@ -14,14 +14,14 @@
          , is_used
          , sort_sequence
          , created_by
-         , created_date
+         -- , created_date
          , last_modified_by
-         , last_modified_date
+         -- , last_modified_date
          , role_id
          , icon_class
-    FROM sf_menu
-    WHERE is_used = #{isUsed}
-    AND role_id <![CDATA[ <= ]]> #{roleId}
+    FROM NI01.sf_menu
+    WHERE IS_USED = #{isUsed}
+    AND ROLE_ID <![CDATA[ <= ]]> #{roleId}
     ORDER BY sort_sequence
   </select>
   
@@ -36,12 +36,12 @@
          , is_used
          , sort_sequence
          , created_by
-         , created_date
+         -- , created_date
          , last_modified_by
-         , last_modified_date
+         -- , last_modified_date
          , role_id
          , icon_class
-    FROM sf_menu
+    FROM NI01.sf_menu
     WHERE id = #{id}
     ORDER BY sort_sequence
   </select>
@@ -56,12 +56,12 @@
          , is_used
          , sort_sequence
          , created_by
-         , created_date
+         -- , created_date
          , last_modified_by
-         , last_modified_date
+         -- , last_modified_date
          , role_id
          , icon_class
-    FROM sf_menu
+    FROM NI01.sf_menu
     ORDER BY sort_sequence
   </select>
 
@@ -100,7 +100,7 @@
   <update id="updateMenuById"
     parameterType="com.lsitc.domain.common.menu.entity.MenuEntity">
     <foreach item="item" collection="list" separator=";">
-    UPDATE sf_menu
+    UPDATE NI01.sf_menu
     SET name               = #{item.name}
       , english_name       = #{item.englishName}
       , parents_id         = #{item.parentsId}
@@ -118,7 +118,7 @@
     <update id="updateMenuByParentsId"
             parameterType="com.lsitc.domain.common.menu.entity.MenuEntity">
         <foreach item="item" collection="list" separator=";">
-            UPDATE sf_menu
+            UPDATE NI01.sf_menu
             SET  role_id = #{item.roleId}
             , last_modified_by   = #{item.lastModifiedBy}
             , last_modified_date = #{item.lastModifiedDate}
@@ -128,7 +128,7 @@
   
   <insert id="insertMenuWithId"
     parameterType="com.lsitc.domain.common.menu.entity.MenuEntity">
-    INSERT INTO sf_menu
+    INSERT INTO NI01.sf_menu
     ( id
     , name
     , english_name
@@ -163,7 +163,7 @@
   <delete id="deleteMenuById"
     parameterType="com.lsitc.domain.common.menu.entity.MenuEntity">
     DELETE
-    FROM sf_menu
+    FROM NI01.sf_menu
     WHERE
     <foreach collection="list" item="item" separator="OR">
         id = #{item.id}

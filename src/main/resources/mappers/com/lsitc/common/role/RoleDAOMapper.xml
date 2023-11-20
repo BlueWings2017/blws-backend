@@ -13,7 +13,7 @@
          , created_date
          , last_modified_by
          , last_modified_date
-    FROM sf_role
+    FROM NI01.SF_ROLE
     WHERE id = #{id}
   </select>
 
@@ -22,11 +22,7 @@
     SELECT id
          , name
          , remark
-         , created_by
-         , created_date
-         , last_modified_by
-         , last_modified_date
-    FROM sf_role
+    FROM NI01.SF_ROLE
   </select>
 
   <select id="selectRoleByConditions"
@@ -39,7 +35,7 @@
          , created_date
          , last_modified_by
          , last_modified_date
-    FROM sf_role
+    FROM NI01.SF_ROLE
     WHERE 1=1
     <if test="id != null and id != ''">
     AND id = #{id}
@@ -51,7 +47,7 @@
 
   <insert id="insertRoleList"
     parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
-	    INSERT INTO sf_role
+	    INSERT INTO NI01.SF_ROLE
 	    ( name
 	    , remark
 	    , created_by
@@ -71,7 +67,7 @@
 
   <insert id="insertRoleWithId"
     parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
-    INSERT INTO sf_role
+    INSERT INTO NI01.SF_ROLE
     ( id
     , name
     , remark
@@ -94,7 +90,7 @@
   <update id="updateRoleById"
     parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
     <foreach item="item" collection="list" separator=";">
-    UPDATE sf_role
+    UPDATE NI01.SF_ROLE
     SET name               = #{item.name}
       , remark             = #{item.remark}
       , last_modified_by   = #{item.lastModifiedBy}
@@ -106,7 +102,7 @@
   <delete id="deleteRoleById"
     parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
     DELETE
-    FROM sf_role
+    FROM NI01.SF_ROLE
     WHERE
     <foreach collection="list" item="item" separator="OR">
         id = #{item.id}

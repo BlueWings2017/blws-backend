@@ -20,3 +20,10 @@ spring:
     exposed-headers: 'authorization'
     allow-credentials: true
     max-age: 1800
+mybatis:
+  configuration:
+    default-executor-type: reuse
+    lazy-loading-enabled: true
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+    jdbc-type-for-null: "NULL"

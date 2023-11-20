@@ -19,17 +19,17 @@ public class MenuListVO {
   private final String text;
   private final boolean expanded;
   private final boolean selected;
-  private final Long regUserNo;
+  private final String regUserNo;
   private final LocalDateTime regDttm;
-  private final Long procUserNo;
+  private final String procUserNo;
   private final LocalDateTime procDttm;
   private final int roleId;
   private final String iconClass;
 
   @Builder
   private MenuListVO(Long menuId, String menuNm, String menuEngNm, Long upMenuId, String url,
-      String useFg, int sortSeq, String text, boolean expanded, boolean selected, Long regUserNo,
-      LocalDateTime regDttm, Long procUserNo, LocalDateTime procDttm, int roleId, String iconClass) {
+      String useFg, int sortSeq, String text, boolean expanded, boolean selected, String regUserNo,
+      LocalDateTime regDttm, String procUserNo, LocalDateTime procDttm, int roleId, String iconClass) {
     this.menuId = menuId;
     this.menuNm = menuNm;
     this.menuEngNm = menuEngNm;
@@ -73,8 +73,8 @@ public class MenuListVO {
         .build();
   }
 
-  private static String convertBoolean(Boolean booleanValue) {
-    return BooleanState.of(booleanValue).getStringValue();
+  private static String convertBoolean(int booleanValue) {
+    return BooleanState.of(String.valueOf(booleanValue)).getStringValue();
   }
   
   private static String getNameByLocale(MenuEntity menuEntity, String locale) {

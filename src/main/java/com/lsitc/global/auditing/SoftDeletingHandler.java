@@ -13,7 +13,7 @@ public class SoftDeletingHandler {
   }
 
   private <T extends SoftDeletable> void touchDeleted(T softDeletable) {
-    if (softDeletable.isDeleted()) {
+    if (softDeletable.isDeleted() > 0) {
       softDeletable.setDeletedBy(userProvider.getId());
       softDeletable.setDeletedDate(dateTimeProvider.getNow());
     }

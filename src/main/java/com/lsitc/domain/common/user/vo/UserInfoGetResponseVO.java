@@ -15,20 +15,20 @@ public class UserInfoGetResponseVO {
   private final String name;
   private final String email;
   private final String phoneNumber;
-  private final Long createdBy;
+  private final String createdBy;
   private final LocalDateTime createdDate;
-  private final Long lastModifiedBy;
+  private final String lastModifiedBy;
   private final LocalDateTime lastModifiedDate;
-  private final boolean isDeleted;
-  private final Long deletedBy;
+  private final int isDeleted;
+  private final String deletedBy;
   private final LocalDateTime deletedDate;
 
   private final int roleId;
 
   @Builder
   private UserInfoGetResponseVO(Long id, String userId, String name, String email,
-      String phoneNumber, Long createdBy, LocalDateTime createdDate, Long lastModifiedBy,
-      LocalDateTime lastModifiedDate, boolean isDeleted, Long deletedBy,
+      String phoneNumber, String createdBy, LocalDateTime createdDate, String lastModifiedBy,
+      LocalDateTime lastModifiedDate, int isDeleted, String deletedBy,
       LocalDateTime deletedDate, int roleId) {
     super();
     this.id = id;

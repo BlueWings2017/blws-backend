@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEntity extends BaseAbstractEntity
-    implements UserDetails, Auditable<Long, LocalDateTime>, SoftDeletable<Long, LocalDateTime> {
+    implements UserDetails, Auditable<String, LocalDateTime>, SoftDeletable<String, LocalDateTime> {
 
   private static final long serialVersionUID = 7428290075155619330L;
 
@@ -87,11 +87,17 @@ public class UserEntity extends BaseAbstractEntity
 
   @Override
   public boolean isEnabled() {
-    return !isDeleted();
+    return isDeleted() > 0 ? false: true;
   }
 
   @Override
   public String toString() {
     return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
   }
+
+	@Override
+	public int isDeleted() {
+		// TODO Auto-generated method stub
+		return this.getIsDeleted();
+	}
 }
