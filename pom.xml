@@ -26,21 +26,21 @@
 
     <repositories>
         <repository>
-            <id>ls-infra</id>
-            <url>http://ap.kfems.net:22281/repository/maven-infra/</url>
+            <id>localRepository</id>
+            <url>file://${user.home}/.m2/repository</url>
         </repository>
     </repositories>
 
     <distributionManagement>
         <snapshotRepository>
-            <id>ls</id>
-            <name>ls-snapshot</name>
-            <url>http://ap.kfems.net:22281/repository/maven-snapshots/</url>
+            <id>localRepository</id>
+            <name>localRepository</name>
+            <url>file://${user.home}/.m2/repository/maven-snapshots/</url>
         </snapshotRepository>
         <repository>
-            <id>ls</id>
-            <name>ls-release</name>
-            <url>http://ap.kfems.net:22281/repository/maven-releases/</url>
+            <id>localRepository</id>
+            <name>localRepository</name>
+            <url>file://${user.home}/.m2/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 

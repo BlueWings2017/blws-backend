@@ -1,57 +1,5 @@
 <?xml version="1.0"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-    <mirrors>
-        <mirror>
-            <id>ls-infra</id>
-            <mirrorOf>ls-infra</mirrorOf>
-            <url>http://ap.kfems.net:22281/repository/maven-infra/</url>
-        </mirror>
-        <mirror>
-            <id>ls-snapshot</id>
-            <mirrorOf>ls-snapshot</mirrorOf>
-            <url>http://ap.kfems.net:22281/repository/maven-snapshots/</url>
-        </mirror>
-        <mirror>
-            <id>ls-releases</id>
-            <mirrorOf>ls-release</mirrorOf>
-            <url>http://ap.kfems.net:22281/repository/maven-releases/</url>
-        </mirror>
-    </mirrors>
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <repositories>
-                <repository>
-                    <id>ls-infra</id>
-                    <url>http://ap.kfems.net:22281/repository/maven-infra/</url>
-                </repository>
-                <repository>
-                    <id>ls-central</id>
-                    <url>http://ap.kfems.net:22281/repository/maven-central/</url>
-                </repository>
-                <repository>
-                    <id>ls-snapshot</id>
-                    <url>http://ap.kfems.net:22281/repository/maven-snapshots/</url>
-                </repository>
-                <repository>
-                    <id>ls-releases</id>
-                    <url>http://ap.kfems.net:22281/repository/maven-releases/</url>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
-
-    <activeProfiles>
-        <activeProfile>dev</activeProfile>
-    </activeProfiles>
-
-    <servers>
-        <server>
-            <id>ls</id>
-            <username>blws</username>
-            <password>lsmes0201</password>
-        </server>
-    </servers>
+    <localRepository>${user.home}/.m2/repository</localRepository>
 </settings>
