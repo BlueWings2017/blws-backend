@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lsitc.domain.common.menu.dao.MenuDAO">
+<mapper namespace="com.blws.domain.common.menu.dao.MenuDAO">
   <select id="selectMenuByConditions"
-    parameterType="com.lsitc.domain.common.menu.entity.MenuEntity"
-    resultType="com.lsitc.domain.common.menu.entity.MenuEntity">
+    parameterType="com.blws.domain.common.menu.entity.MenuEntity"
+    resultType="com.blws.domain.common.menu.entity.MenuEntity">
     SELECT id
          , name
          , english_name
@@ -26,8 +26,8 @@
   </select>
   
   <select id="selectMenuById"
-    parameterType="com.lsitc.domain.common.menu.entity.MenuEntity"
-    resultType="com.lsitc.domain.common.menu.entity.MenuEntity">
+    parameterType="com.blws.domain.common.menu.entity.MenuEntity"
+    resultType="com.blws.domain.common.menu.entity.MenuEntity">
     SELECT id
          , name
          , english_name
@@ -47,7 +47,7 @@
   </select>
 
   <select id="selectAll"
-    resultType="com.lsitc.domain.common.menu.entity.MenuEntity">
+    resultType="com.blws.domain.common.menu.entity.MenuEntity">
     SELECT id
          , name
          , english_name
@@ -66,7 +66,7 @@
   </select>
 
   <insert id="insertMenuList"
-    parameterType="com.lsitc.domain.common.menu.entity.MenuEntity">
+    parameterType="com.blws.domain.common.menu.entity.MenuEntity">
     INSERT INTO sf_menu
     ( name
     , english_name
@@ -98,7 +98,7 @@
   </insert>
 
   <update id="updateMenuById"
-    parameterType="com.lsitc.domain.common.menu.entity.MenuEntity">
+    parameterType="com.blws.domain.common.menu.entity.MenuEntity">
     <foreach item="item" collection="list" separator=";">
     UPDATE NI01.sf_menu
     SET name               = #{item.name}
@@ -116,7 +116,7 @@
   </update>
 
     <update id="updateMenuByParentsId"
-            parameterType="com.lsitc.domain.common.menu.entity.MenuEntity">
+            parameterType="com.blws.domain.common.menu.entity.MenuEntity">
         <foreach item="item" collection="list" separator=";">
             UPDATE NI01.sf_menu
             SET  role_id = #{item.roleId}
@@ -127,7 +127,7 @@
     </update>
   
   <insert id="insertMenuWithId"
-    parameterType="com.lsitc.domain.common.menu.entity.MenuEntity">
+    parameterType="com.blws.domain.common.menu.entity.MenuEntity">
     INSERT INTO NI01.sf_menu
     ( id
     , name
@@ -161,7 +161,7 @@
   </insert>
 
   <delete id="deleteMenuById"
-    parameterType="com.lsitc.domain.common.menu.entity.MenuEntity">
+    parameterType="com.blws.domain.common.menu.entity.MenuEntity">
     DELETE
     FROM NI01.sf_menu
     WHERE

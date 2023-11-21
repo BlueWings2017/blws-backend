@@ -4,7 +4,7 @@
     <persistence-units>
       <persistence-unit name="Default">
         <packages>
-          <package value="com.lsitc.domain" />
+          <package value="com.blws.domain" />
         </packages>
       </persistence-unit>
     </persistence-units>

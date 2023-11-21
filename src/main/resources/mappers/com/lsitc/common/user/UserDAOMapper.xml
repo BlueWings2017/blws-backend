@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lsitc.domain.common.user.dao.UserDAO">
+<mapper namespace="com.blws.domain.common.user.dao.UserDAO">
   <select id="selectUserById"
-    parameterType="com.lsitc.domain.common.user.entity.UserEntity"
-    resultType="com.lsitc.domain.common.user.entity.UserEntity">
+    parameterType="com.blws.domain.common.user.entity.UserEntity"
+    resultType="com.blws.domain.common.user.entity.UserEntity">
     SELECT user_id
          , password
          , name
@@ -24,8 +24,8 @@
   </select>
   
   <select id="selectUserByIds"
-    parameterType="com.lsitc.domain.common.user.entity.UserEntity"
-    resultType="com.lsitc.domain.common.user.entity.UserEntity">
+    parameterType="com.blws.domain.common.user.entity.UserEntity"
+    resultType="com.blws.domain.common.user.entity.UserEntity">
     SELECT user_id
          , password
          , name
@@ -47,8 +47,8 @@
   </select>
   
   <select id="selectUserByUserId"
-    parameterType="com.lsitc.domain.common.user.entity.UserEntity"
-    resultType="com.lsitc.domain.common.user.entity.UserEntity">
+    parameterType="com.blws.domain.common.user.entity.UserEntity"
+    resultType="com.blws.domain.common.user.entity.UserEntity">
     SELECT USER_ID
 		, NAME
 		, PASSWORD
@@ -62,7 +62,7 @@
   </select>
 
   <select id="selectAll"
-    resultType="com.lsitc.domain.common.user.entity.UserEntity">
+    resultType="com.blws.domain.common.user.entity.UserEntity">
     SELECT user_id
          , password
          , name
@@ -80,8 +80,8 @@
   </select>
   
   <select id="selectUserByConditions"
-    parameterType="com.lsitc.domain.common.user.entity.UserEntity"
-    resultType="com.lsitc.domain.common.user.entity.UserEntity">
+    parameterType="com.blws.domain.common.user.entity.UserEntity"
+    resultType="com.blws.domain.common.user.entity.UserEntity">
     SELECT user_id
          , password
          , name
@@ -109,7 +109,7 @@
   </select>
 
   <insert id="insertUserList"
-    parameterType="com.lsitc.domain.common.user.entity.UserEntity">
+    parameterType="com.blws.domain.common.user.entity.UserEntity">
     INSERT INTO NI01.sf_user
     ( user_id
     , password
@@ -137,7 +137,7 @@
   </insert>
 
   <insert id="insertUserWithId"
-    parameterType="com.lsitc.domain.common.user.entity.UserEntity">
+    parameterType="com.blws.domain.common.user.entity.UserEntity">
     INSERT INTO NI01.sf_user
     ( user_id
     , password
@@ -165,7 +165,7 @@
   </insert>
 
   <update id="updateUserById"
-    parameterType="com.lsitc.domain.common.user.entity.UserEntity">
+    parameterType="com.blws.domain.common.user.entity.UserEntity">
     <foreach item="item" collection="list" separator=";">
     UPDATE NI01.sf_user
     SET user_id            = #{item.userId}
@@ -183,7 +183,7 @@
   </update>
 
   <update id="updateUserIsDeletedById"
-    parameterType="com.lsitc.domain.common.user.entity.UserEntity">
+    parameterType="com.blws.domain.common.user.entity.UserEntity">
     <foreach item="item" collection="list" separator=";">
     UPDATE NI01.sf_user
     SET is_deleted         = #{item.isDeleted}
@@ -197,7 +197,7 @@
   </update>
 
     <update id="updateUserToken"
-            parameterType="com.lsitc.domain.common.user.entity.UserEntity">
+            parameterType="com.blws.domain.common.user.entity.UserEntity">
         UPDATE NI01.sf_user
         SET ACCESS_TOKEN     = #{accessToken}
           , REFRESH_TOKEN    = #{refreshToken}

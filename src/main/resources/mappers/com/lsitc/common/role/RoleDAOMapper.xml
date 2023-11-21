@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lsitc.domain.common.role.dao.RoleDAO">
+<mapper namespace="com.blws.domain.common.role.dao.RoleDAO">
   <select id="selectRoleById"
-    parameterType="com.lsitc.domain.common.role.entity.RoleEntity"
-    resultType="com.lsitc.domain.common.role.entity.RoleEntity">
+    parameterType="com.blws.domain.common.role.entity.RoleEntity"
+    resultType="com.blws.domain.common.role.entity.RoleEntity">
     SELECT id
          , name
          , remark
@@ -18,7 +18,7 @@
   </select>
 
   <select id="selectAll"
-    resultType="com.lsitc.domain.common.role.entity.RoleEntity">
+    resultType="com.blws.domain.common.role.entity.RoleEntity">
     SELECT id
          , name
          , remark
@@ -26,8 +26,8 @@
   </select>
 
   <select id="selectRoleByConditions"
-    parameterType="com.lsitc.domain.common.role.entity.RoleEntity"
-    resultType="com.lsitc.domain.common.role.entity.RoleEntity">
+    parameterType="com.blws.domain.common.role.entity.RoleEntity"
+    resultType="com.blws.domain.common.role.entity.RoleEntity">
     SELECT id
          , name
          , remark
@@ -46,7 +46,7 @@
   </select>
 
   <insert id="insertRoleList"
-    parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
+    parameterType="com.blws.domain.common.role.entity.RoleEntity">
 	    INSERT INTO NI01.SF_ROLE
 	    ( name
 	    , remark
@@ -66,7 +66,7 @@
   </insert>
 
   <insert id="insertRoleWithId"
-    parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
+    parameterType="com.blws.domain.common.role.entity.RoleEntity">
     INSERT INTO NI01.SF_ROLE
     ( id
     , name
@@ -88,7 +88,7 @@
   </insert>
 
   <update id="updateRoleById"
-    parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
+    parameterType="com.blws.domain.common.role.entity.RoleEntity">
     <foreach item="item" collection="list" separator=";">
     UPDATE NI01.SF_ROLE
     SET name               = #{item.name}
@@ -100,7 +100,7 @@
   </update>
 
   <delete id="deleteRoleById"
-    parameterType="com.lsitc.domain.common.role.entity.RoleEntity">
+    parameterType="com.blws.domain.common.role.entity.RoleEntity">
     DELETE
     FROM NI01.SF_ROLE
     WHERE
