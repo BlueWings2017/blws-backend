@@ -12,9 +12,9 @@
          , email
          , phone_number
          , created_by
-         , created_date
+         --, created_date
          , last_modified_by
-         , last_modified_date
+         --, last_modified_date
          , is_deleted
          , deleted_by
          , deleted_date
@@ -32,12 +32,12 @@
          , email
          , phone_number
          , created_by
-         , created_date
+         --, created_date
          , last_modified_by
-         , last_modified_date
+         --, last_modified_date
          , is_deleted
          , deleted_by
-         , deleted_date
+         --, deleted_date
          , role_id
     FROM NI01.sf_user
     WHERE
